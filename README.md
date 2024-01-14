@@ -1,4 +1,28 @@
-# RaspiBlitz im Doppelpack - RAID1 für maximale Sicherheit beim Betrieb deiner Lightning⚡ Fullnode
+# RaspiBlitz im Doppelpack - RAID-1 für maximale Sicherheit beim Betrieb deiner Lightning⚡ Fullnode
+
+## Zielbild
+
+- Proxmox (Virtualisierungs Host System)
+- ZFS RAID-1 Setup: SSD wird komplett gespiegelt
+
+### Vorteile RAID-1
+
+Beim Ausfall einer SSD gibt es eine komplette Redundanz.  
+Eure Channels bleiben also selbst beim total Ausfall einer SSD offen.  
+Bei den aktuellen hohen Transaktionsgebühren (TX, ~ 180 sats/VByte),
+spart ihr euch somit eine Menge Sats (₿), zudem ist es einfach ein  
+sehr beruhigendes Gefühl, zu wissen dass die Platte mit euren Funds  
+komplett gespiegelt und somit abgesichert ist.
+
+**Exemplarischer aktueller Block**  
+![Alt text](image.png)
+
+## Danger Zone ⚠️ Potentielle Gefahren und Trouble Shoot
+
+Ok, Full Disclosure, der Prozess von einem Standard Setup (RaspiBlitz auf einem Raspberry 4 oder 5)  
+auf ein Setup umzustellen, dass RAID-1 erlaubt ist nicht trivial und birgt Risiken.  
+Im Sinne maximaler Transparenz und damit ihr die richtige Entscheidung für euch
+treffen könnt sind hier einige Gefahren aufgelistet
 
 ## Hardware Setup
 
