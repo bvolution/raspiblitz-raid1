@@ -1,6 +1,6 @@
-# RaspiBlitz im Doppelpack
+# RaspiBlitz im Doppelpack - RAID-1 für maximale Sicherheit beim Betrieb deiner Lightning⚡ Fullnode
 
-# RAID-1 für maximale Sicherheit beim Betrieb deiner Lightning⚡ Fullnode
+In diesem Blog Beitrag berichten wir, all das was wir gelernt haben und geben euch eine Schritt für Schritt Anleitung wie ihr die Sicherheit beim Betrieb einer RaspiBlitz weiter maximieren könnt und einen RAID-1 aufsetzen könnt.
 
 ## Zielbild
 
@@ -9,24 +9,17 @@
 
 ### Vorteile RAID-1
 
-Beim Ausfall einer SSD gibt es eine komplette Redundanz.  
-Eure Channels bleiben also selbst beim total Ausfall einer SSD offen.  
-Bei den aktuellen hohen Transaktionsgebühren (TX, ~ 180 sats/VByte),
-spart ihr euch somit eine Menge Sats (₿), zudem ist es einfach ein  
-sehr beruhigendes Gefühl, zu wissen dass die Platte mit euren Funds  
-komplett gespiegelt und somit abgesichert ist.
+Beim Ausfall einer SSD gibt es eine komplette Redundanz. Eure Channels bleiben also selbst beim total Ausfall einer SSD offen. Bei den aktuellen hohen Transaktionsgebühren (TX, ~ 180 sats/VByte), spart ihr euch somit eine Menge Sats (₿), zudem ist es einfach ein sehr beruhigendes Gefühl, zu wissen dass die Platte mit euren Funds komplett gespiegelt und somit abgesichert ist.
 
 **Exemplarischer aktueller Block**  
+  
 ![Alt text](image.png)
 
 ## Danger Zone ⚠️
 
 ## Potentielle Gefahren und Trouble Shoot
 
-Ok, Full Disclosure, der Prozess von einem Standard Setup (RaspiBlitz auf einem Raspberry 4 oder 5)  
-auf ein Setup umzustellen, dass RAID-1 erlaubt ist nicht trivial und birgt Risiken.  
-Im Sinne maximaler Transparenz und damit ihr die richtige Entscheidung für euch
-treffen könnt sind hier einige Gefahren aufgelistet
+Ok, Full Disclosure, der Prozess von einem Standard Setup (RaspiBlitz auf einem Raspberry 4 oder 5) auf ein Setup umzustellen, dass RAID-1 erlaubt ist nicht trivial und birgt Risiken. Im Sinne maximaler Transparenz und damit ihr die richtige Entscheidung für euchtreffen könnt sind hier einige Gefahren aufgelistet
 
 ## Hardware Setup
 
@@ -39,16 +32,8 @@ Funktion | Setup 1 (bvolution) | Setup 2 (to be annouced)
 
 ## Nächste Sicherheitsausbaustufen
 
-Wir nähern uns hier einer extrem hohen Aufallssicherheitsgüte.  
-Ein letztes Risiko bleibt der Stromausfall / Blackout. Im worst case,  
-geht hier dein komplettes Setup in die Knie, mitten im Schreibprozess auf  
-den RAID-1 (die beiden SSDs). Durch die Art und Weise wie RAID-1 und ZFS funktioniert  
-ist es nicht ausgeschlossen, das dabei nicht beide SSDs gleichzeitig ausfallen.  
+Wir nähern uns hier mit dem RAID-1 Betrieb einer extrem hohen Ausfallsicherheit. Ein letztes Risiko bleibt der Stromausfall / Blackout. Im worst case, geht hier dein komplettes Setup in die Knie, mitten im Schreibprozess auf den RAID-1 (die beiden SSDs). Durch die Art und Weise wie RAID-1 und ZFS funktioniert ist es nicht ausgeschlossen, das dabei nicht beide SSDs gleichzeitig ausfallen.  
 
 ### USV / UPS als Lösung
 
-Um auch im Falle des gefüchteten Blackouts best möglich geschützt zu sein
-(und im übrigen auch gegen gelgentliche vorkommende Schwankungen im Netz),  
-empfiehlt es sich als eine weitere Sicherhehits-Ausbaustufe über eine  
-USV (**U**nunterbrechbare **S**trom**v**ersorgung) nachzudenken.
-Mehr dazu in unserem nächsten Blog Beitrag.
+Um auch im Falle des gefüchteten Blackouts best möglich geschützt zu sein (und im übrigen auch gegen gelgentliche vorkommende Schwankungen im Netz), empfiehlt es sich als eine weitere Sicherhehits-Ausbaustufe über eine USV (**U**nunterbrechbare **S**trom**v**ersorgung) nachzudenken. Mehr dazu in unserem nächsten Blog Beitrag.
