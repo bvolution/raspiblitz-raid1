@@ -34,6 +34,7 @@ Funktion | Setup 1 (bvolution) | Setup 2 (to be annouced)
 ---------|----------|---------
  Host System (Proxmox) | - HP EliteDesk 800 G3 mini 35W, Desktop-Mini, Core i5 7500T 2,7GHz, 16GB RAM, 512GB SSD <br> ([Link](https://www.computeroutlet24.de/pc-systeme/hp-elitedesk-800-g3-mini-35w-desktop-mini-core-i5-7500t-27ghz-16gb-ram-512gb-ssd-windows-10-pro.html?cache=1705252819)), **179€**) | -
  Speicher für Raid | - 2 x SanDisk 1TB SSD Plus ([Link](https://www.idealo.de/preisvergleich/OffersOfProduct/201902833_-ssd-plus-1tb-sdssda-1t00-g27-sandisk.html), **~60€**),<br> - angeschlossen über 2 x UGREEN SATA-III zu USB3.0 Adapter ([Link](https://www.amazon.de/dp/B06XWSDGP6?psc=1&ref=ppx_yo2ov_dt_b_product_details), 14€) | -
+ USB Stick / SD Karte zum installieren von Proxmox | Beliebiger USB Stick oder SD Karte -.. | -
 
 <hr>
 
@@ -51,8 +52,42 @@ Ok auf gehts
 Die .iso Datei zur Installation von Proxmox kannst du [hier](https://www.proxmox.com/de/downloads) runterladen.
 Wir wählen hier **Proxmox VE**
 
+![Alt text](image-1.png)
+
 > ℹ️ **Info:**  
 > Was ist Promox VE? Proxmox Virtual Environment (Proxmox VE) ist eine Open-Source-Plattform für Virtualisierung, die auf dem Kernel-basierten Virtual Machine (KVM) Hypervisor und dem containerbasierten Virtualisierungssystem LXC basiert. Sie bietet eine integrierte Management-Oberfläche für die Bereitstellung und Verwaltung von virtuellen Maschinen und Containern auf einem einzigen Host.
+
+**Wichtig:** Wenn ihr auf sicher gehen wollt, dass die Datei nicht manipuliert ist und identisch zu der auf der Homepage von Proxmox angegebenen datei ist, könnt ihr den SHA256 Hash der Datei abgleichen. Und gerade wenn es um eure hart verdienten Sats geht, lohnt es sich ggf. extra vorsichtig zu sein, oder 🤔?
+
+Falls euch das nicht wichtig ist, könnt ihr getrost das nächste Unterkapitel überspringen
+
+### Installtionsdatei Verifizieren
+
+#### Windows 🪟
+
+- Dazu öffnest eine Konsole
+  - Tipp: <kbd>Win</kbd> + <kbd>R</kbd> dort `cmd` eingeben <kbd>Enter</kbd>
+- Wechsel in den Ordner in den Du die Datei runter geladen hast mittels `cd`
+  - In der Regel wirst du die Datei vermutlich im Download Ordner runterladen.  
+  `cd C:/Users/<benutzer>/Downloads`  
+  Tausche hier < benutzer > gegen deinen Benutzernamen aus
+- Mittels dem bei Windows standardmäßig gelieferten certutil bekommst du den Hash
+  - ```sh certutil -hashfile "<dateiname>" SHA256```
+  - In meinem Fall wäre diese der folgende Befehl (wenn du in der Zukunft eine neue Version runterlädst kann sich natürlich der Dateiname und natürlich auch der Zielhash ändern)
+  - ```sh certutil -hashfile proxmox-ve_8.1-1.iso SHA256```
+- Das Ergebnis (der Hash) gleichst du dann mit dem auf der Webseite angegeben Hash ab
+
+```sh
+SHA256-Hash von proxmox-ve_8.1-1.iso:
+9018a17307ad50eb9bf32a805d0917d621499363ef87b0b477332ed9f9d7dcc1
+CertUtil: -hashfile-Befehl wurde erfolgreich ausgeführt.
+```
+
+Hier seht ihr das der Hash aus der Konsole übereinstimmt mit dem von der Webseite
+
+### Flash der .iso Datei
+
+Wenn du bereits einen RaspiBlitz im Betrieb hast
 
 ## 2.) ZFS RAID-1 in Proxmox aufsetzen
 
