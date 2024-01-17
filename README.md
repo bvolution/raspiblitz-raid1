@@ -46,15 +46,20 @@ Funktion | Setup 1 (bvolution) | Setup 2 (to be annouced)
 
 Ok auf gehts
 
-## 1) Proxmox Installieren
+## 1) Proxmox VE Installieren
 
 Die .iso Datei zur Installation von Proxmox kannst du [hier](https://www.proxmox.com/de/downloads) runterladen.
 Wir wählen hier **Proxmox VE**
 
-> ℹ️ **Info**
+> ℹ️ **Info:**  
 > Was ist Promox VE? Proxmox Virtual Environment (Proxmox VE) ist eine Open-Source-Plattform für Virtualisierung, die auf dem Kernel-basierten Virtual Machine (KVM) Hypervisor und dem containerbasierten Virtualisierungssystem LXC basiert. Sie bietet eine integrierte Management-Oberfläche für die Bereitstellung und Verwaltung von virtuellen Maschinen und Containern auf einem einzigen Host.
 
-### x.) ZFS aufsetzen
+## 2.) ZFS RAID-1 in Proxmox aufsetzen
+
+Ipsum Dorusm
+
+> ℹ️ **Info:**  
+> Ein ZFS RAID-1, auch als Spiegelung bekannt, beinhaltet das Kopieren von Daten auf zwei Festplatten (oder mehr) in Echtzeit. Alle Schreibvorgänge werden auf beide Platten dupliziert, was Redundanz und erhöhte Datensicherheit bietet, da auf die Daten zugegriffen werden kann, selbst wenn eine der Platten ausfällt.
 
 für die beste performance aber noch die ssds mit gdisk auf gpt formatieren
 
