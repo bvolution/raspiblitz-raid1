@@ -8,9 +8,10 @@ In diesem Blog Beitrag berichten wir, all das was wir gelernt haben und geben eu
 2. Einen RAID-1 (also absoluten Spiegel) für unsere SSD aufsetzen.  
 Damit erzeugen wir Redundanz, was im Endeffekt bedeutet, selbst im Wort Case: das uns eine SSD abraucht, läuft unser RaspiBlitz ganz unbeindruckt weiter.
 3. Erstellen einer Virtuellen Machine (erzeugt via Proxmox) auf der unser Raspiblitz läuft.
-4. (Optional:) Migrieren unserer bestehenden Node
+4. (Optional) Migrieren unserer bestehenden Node
 
-Klingt technisch und zu kompliziert? Ist es überhaupt nicht und wir nehmen dich mit auf die Reise und liefern hier ein Schritt für Schritt tutorial.
+Klingt technisch oder zu kompliziert 🫢?  
+Ist es überhaupt nicht und wir nehmen dich mit auf die Reise und liefern hier ein Schritt für Schritt Tutorial.
 
 ### Warum? Oder die Vorteile von RAID-1 💾
 
@@ -34,7 +35,7 @@ Funktion | Setup 1 (bvolution) | Setup 2 (to be annouced)
 ---------|----------|---------
  Host System (Proxmox) | - HP EliteDesk 800 G3 mini 35W, Desktop-Mini, Core i5 7500T 2,7GHz, 16GB RAM, 512GB SSD <br> ([Link](https://www.computeroutlet24.de/pc-systeme/hp-elitedesk-800-g3-mini-35w-desktop-mini-core-i5-7500t-27ghz-16gb-ram-512gb-ssd-windows-10-pro.html?cache=1705252819)), **179€**) | -
  Speicher für Raid | - 2 x SanDisk 1TB SSD Plus ([Link](https://www.idealo.de/preisvergleich/OffersOfProduct/201902833_-ssd-plus-1tb-sdssda-1t00-g27-sandisk.html), **~60€**),<br> - angeschlossen über 2 x UGREEN SATA-III zu USB3.0 Adapter ([Link](https://www.amazon.de/dp/B06XWSDGP6?psc=1&ref=ppx_yo2ov_dt_b_product_details), 14€) | -
- USB Stick / SD Karte zum installieren von Proxmox | Beliebiger USB Stick oder SD Karte -.. | -
+ USB Stick / SD Karte zum installieren von Proxmox | Beliebiger USB Stick oder SD Karte | -
 
 <hr>
 
@@ -85,9 +86,19 @@ CertUtil: -hashfile-Befehl wurde erfolgreich ausgeführt.
 
 Hier seht ihr das der Hash aus der Konsole übereinstimmt mit dem von der Webseite
 
-### Flash der .iso Datei
+### Vorbereiten der Installtion (Flash der .iso Datei)
 
-Wenn du bereits einen RaspiBlitz im Betrieb hast
+Wenn Ihr bereits einen RaspiBlitz im Betrieb habt, sollte euch das folgende sehr bekannt vorkommen.
+Die Schritte sind quasi identisch zum Setup für den Raspiblitz ([Write the SD Card image to the SD Card](https://github.com/raspiblitz/raspiblitz#write-the-sd-card-image-to-your-sd-card)).
+Für alle die bisher noch nie ein anderes Betriebssystem installiert haben, ... ist hier die Definitiv nicht mit ChatGPT (😆) generierte, Begründung, warum
+wir die nächsten Schritte begehen.
+
+> ℹ️ **Info:**  
+> Das Schreiben eines ISO-Abbilds auf einen USB-Stick ermöglicht es, ein bootfähiges Installationsmedium zu erstellen, das tragbar, schnell, wiederverwendbar und flexibel ist, was die Installation von Betriebssystemen auf verschiedenen Computern erleichtert.
+
+Um ein solches "Bootfähiges Installationsmedium" zu erstellen, empfehle ich unter Windows Balena Etcher. Das Tool ist einfach super intuitiv und selbst erklärend.
+Das ganze dauert dann eine kleine Weile
+![Alt text](image-2.png)
 
 ## 2.) ZFS RAID-1 in Proxmox aufsetzen
 
