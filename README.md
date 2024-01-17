@@ -98,7 +98,9 @@ wir die nächsten Schritte begehen.
 
 Um ein solches "Bootfähiges Installationsmedium" zu erstellen, empfehle ich unter Windows Balena Etcher. Das Tool ist einfach super intuitiv und selbst erklärend.
 Das ganze dauert dann eine kleine Weile
-![Alt text](image-2.png)
+<img src=image-2.png width=500/>
+
+Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten 
 
 ## 2.) ZFS RAID-1 in Proxmox aufsetzen
 
