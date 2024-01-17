@@ -35,9 +35,18 @@ Funktion | Setup 1 (bvolution) | Setup 2 (to be annouced)
  Host System (Proxmox) | - HP EliteDesk 800 G3 mini 35W, Desktop-Mini, Core i5 7500T 2,7GHz, 16GB RAM, 512GB SSD <br> ([Link](https://www.computeroutlet24.de/pc-systeme/hp-elitedesk-800-g3-mini-35w-desktop-mini-core-i5-7500t-27ghz-16gb-ram-512gb-ssd-windows-10-pro.html?cache=1705252819)), **179€**) | -
  Speicher für Raid | - 2 x SanDisk 1TB SSD Plus ([Link](https://www.idealo.de/preisvergleich/OffersOfProduct/201902833_-ssd-plus-1tb-sdssda-1t00-g27-sandisk.html), **~60€**),<br> - angeschlossen über 2 x UGREEN SATA-III zu USB3.0 Adapter ([Link](https://www.amazon.de/dp/B06XWSDGP6?psc=1&ref=ppx_yo2ov_dt_b_product_details), 14€) | -
 
-## Schritte
+<hr>
 
-### Proxmox Installieren
+# Schritte
+
+1. Proxmox (Virtualisierungs Host System)
+2. ZFS RAID-1 Setup: SSD wird komplett gespiegelt
+3. Virtuelle Machine (RaspiBlitz)
+4. (Migration einer bestehenden Node)
+
+Ok auf gehts
+
+## 1) Proxmox Installieren
 
 Die .iso Datei zur Installation von Proxmox kannst du [hier](https://www.proxmox.com/de/downloads) runterladen.
 Wir wählen hier **Proxmox VE**
