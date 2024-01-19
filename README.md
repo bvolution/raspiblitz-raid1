@@ -153,7 +153,8 @@ Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kan
 
 ## 2) ZFS RAID-1 in Proxmox aufsetzen
 
-Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zetabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" [$^{[3]}$](https://www.westerndigital.com/de-de/solutions/raid) und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
+Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zettabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" [$^{[3]}$](https://www.westerndigital.com/de-de/solutions/raid) und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
+Das ZFS (Zettabyte File System) ist  für seine Robustheit und Datensicherheit bekannt, auch im Falle von Stromausfällen. Es wurde speziell entwickelt, um hohe Datenintegrität und Fehlertoleranz zu bieten.
 
 > ℹ️ **Info:**  
 > Ein ZFS RAID-1, auch als Spiegelung bekannt, beinhaltet das Kopieren von Daten auf zwei Festplatten (oder mehr) in Echtzeit. Alle Schreibvorgänge werden auf beide Platten dupliziert, was Redundanz und erhöhte Datensicherheit bietet, da auf die Daten zugegriffen werden kann, selbst wenn eine der Platten ausfällt.
@@ -187,7 +188,7 @@ zpool create -o ashift=12 <mirrorname> mirror /dev/disk/by-id/UUID-angeben /dev/
 
 ## Nächste Sicherheitsausbaustufen
 
-Wir nähern uns hier mit dem RAID-1 Betrieb einer extrem hohen Ausfallsicherheit. Ein letztes Risiko bleibt der Stromausfall / Blackout. Im worst case, geht hier dein komplettes Setup in die Knie, mitten im Schreibprozess auf den RAID-1 (die beiden SSDs). Durch die Art und Weise wie RAID-1 und ZFS funktioniert ist die Gefahr von data corruption ist etwas höher bei ZFS
+Wir nähern uns hier mit dem RAID-1 Betrieb einer extrem hohen Ausfallsicherheit. Ein letztes Risiko bleibt der Stromausfall / Blackout. Im worst case, geht hier dein komplettes Setup in die Knie, mitten im Schreibprozess auf den RAID-1 (die beiden SSDs). Durch die Art und Weise wie RAID-1 und ZFS funktioniert ist die gefahr von data corruption ist etwas höher bei ZFS
 
 ### USV / UPS als Lösung
 
