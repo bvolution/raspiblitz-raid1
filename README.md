@@ -27,6 +27,26 @@ Solltet ihr eine **neue Node** aufsetzen, ist der gesamte **Prozess völlig unbe
 
 Ok, Full Disclosure, der Prozess von einem Standard Setup (RaspiBlitz auf einem Raspberry 4 oder 5) auf ein Setup umzustellen, dass RAID-1 erlaubt ist nicht trivial und birgt Risiken. Im Sinne maximaler Transparenz und damit ihr die richtige Entscheidung für euchtreffen könnt sind hier einige Gefahren aufgelistet.
 
+Das größte Risiko besteht darin, dass ihr ein Backup eurer LND Channels erstellt (am Ende des Prozesses fährt euer Raspiblitz runter) und es geht in diesem Moment noch ein HLTC (LN Transaktion durch). Nach dem Wiederherstellen eures Migrations File würde dass dazu führen, dass ihr mit dem Backup einen alten Channel Status Broadcastet und somit Gefahr für eine Justice / Penalty Transaktion lauft.
+
+> ℹ️ **Info - Was ist das Risiko?**  
+> Eine LN Zahlung geht beim erstellen des Backups durch und führt beim wiederherstellen des Backups zu einer Justice / Penalty Transaktion für diesen einen Channel kommt. Das würde den komplett Verlust aller Funds in diesem einen Channel bedeuten
+
+**Additional Reads and Sources:**
+
+- <https://docs.lightning.engineering/lightning-network-tools/lnd/migrating-lnd>
+- <https://blog.bitmex.com/lightning-network-justice/>
+- <https://voltage.cloud/blog/lightning-network-faq/penalty-transactions-on-lightning-network/>
+
+### Vorbereitung / Mitigation
+
+Ihr solltet unbedingt sicher gehen, dass ihr
+
+1. Den Seed zu eurer Node habt
+2. Ein aktuelles [SCB](https://docs.lightning.engineering/lightning-network-tools/lnd/recovery-planning-for-failure#static-channel-backups-scb) (Static Channel Backup) habt
+
+Habt. Damit ihr im worst-case Szenario mit dem Desaster Recover ([Link](https://docs.lightning.engineering/lightning-network-tools/lnd/disaster-recovery)) eure Funds wieder herstellen könnt.
+
 ## Hardware Setup
 
 ### Getestet für diesen Blog
@@ -55,7 +75,7 @@ Wir wählen hier **Proxmox VE**
 
 ![Alt text](image-1.png)
 
-> ℹ️ **Info:**  
+ℹ️ **Info:**  
 > Was ist Promox VE? Proxmox Virtual Environment (Proxmox VE) ist eine Open-Source-Plattform für Virtualisierung, die auf dem Kernel-basierten Virtual Machine (KVM) Hypervisor und dem containerbasierten Virtualisierungssystem LXC basiert. Sie bietet eine integrierte Management-Oberfläche für die Bereitstellung und Verwaltung von virtuellen Maschinen und Containern auf einem einzigen Host.
 
 **Wichtig:** Wenn ihr auf sicher gehen wollt, dass die Datei nicht manipuliert ist und identisch zu der auf der Homepage von Proxmox angegebenen datei ist, könnt ihr den SHA256 Hash der Datei abgleichen. Und gerade wenn es um eure hart verdienten Sats geht, lohnt es sich ggf. extra vorsichtig zu sein, oder 🤔?
@@ -98,9 +118,36 @@ wir die nächsten Schritte begehen.
 
 Um ein solches "Bootfähiges Installationsmedium" zu erstellen, empfehle ich unter Windows Balena Etcher. Das Tool ist einfach super intuitiv und selbst erklärend.
 Das ganze dauert dann eine kleine Weile
-<img src=image-2.png width=500/>
 
-Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten 
+<p align=center>
+<img src=image-2.png width=500/>
+</p>
+
+Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten ...
+
+Die Installation ist ziemlich selbt erklärend und es gibt diverse Blogs[$^{[1]}$](https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/)
+
+### Erste Schritte 👣 in Proxmox
+
+Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kann
+
+- Macht euch mit der GUI / Webinterface vertraut
+  - Dazu gebt ihr im Browser eurer wahl folgendes ein `192.168.178.100:8006`
+  - Bedenkt das durch die IP Adresse eures Proxmox Mini-PC zu ersetzen
+  - Achtet auf den Port am Ende (8006)
+- Loggt euch über SSH auf eurem Proxmox ein
+  - Startet ein Terminal (s.o.)
+  - `ssh root@192.168.178.100`
+  - Auch hier müsst ihr natürlich die IP entsprechend austauschen
+
+> **Info**  
+> Ihr könnt die IP von eurem neuen Proxmox Mini-PC über euren Router herausfinden. Dazu loggt ihr euch über den Browser in euren Router ein und lasst euch das Lokale Netz anzeigen.
+
+- Updated die System Packages und installiert was ihr braucht
+  - Ich mag meine Bash Konsole gerne in Farbe
+  - Außerdem entwickle ich gerne ich in Neovim
+  - Und git braucht man eigentlich immer
+  - Hier ist ein Micro Repository, mit den Dingen die ich gerne auf einem neuen Proxmox Sytem aufsetze: [`customize-proxmox`](https://github.com/bvolution/customize-proxmox)
 
 ## 2.) ZFS RAID-1 in Proxmox aufsetzen
 
