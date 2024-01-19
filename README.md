@@ -1,6 +1,6 @@
 # RaspiBlitz im Doppelpack - RAID-1 für maximale Sicherheit beim Betrieb deiner Lightning⚡ Fullnode
 
-In diesem Blog Beitrag bekommt ihr eine Schritt für Schritt Anleitung wie ihr die Sicherheit beim Betrieb einer RaspiBlitz weiter maximieren könnt indem ihr RAID-1 für euren RaspiBlitz aufsetzet. Dieser Blog ist von Plebs für Plebs geschrieben und basiert auf unseren Erfahrunge
+In diesem Blog Beitrag bekommt ihr eine Schritt für Schritt Anleitung wie ihr die Sicherheit beim Betrieb einer RaspiBlitz weiter maximieren könnt indem ihr RAID-1 für euren RaspiBlitz aufsetzet. Dieser Blog ist von Plebs für Plebs geschrieben und basiert auf unseren Erfahrungen 🌝
 
 ## Zielbild RaspiBlitz mit RAID-1
 
@@ -127,7 +127,7 @@ Das ganze dauert dann eine kleine Weile
 
 Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten ...
 
-Die Installation ist ziemlich selbt erklärend und es gibt diverse Blogs[$^{[1]}$][https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/]($^{[2)}$](<https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a>)
+Die Installation ist ziemlich selbt erklärend und es gibt diverse Blogs[$^{[1]}$](https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/)[$^{[2)}$](<https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a>)
 
 ### Erste Schritte 👣 in Proxmox
 
@@ -154,7 +154,7 @@ Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kan
 ## 2) ZFS RAID-1 in Proxmox aufsetzen
 
 Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zettabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" [$^{[3]}$](https://www.westerndigital.com/de-de/solutions/raid) und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
-Das ZFS (Zettabyte File System) ist  für seine Robustheit und Datensicherheit bekannt, auch im Falle von Stromausfällen. Es wurde speziell entwickelt, um hohe Datenintegrität und Fehlertoleranz zu bieten.
+Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit bekannt, auch im Falle von Stromausfällen. Es wurde speziell entwickelt, um hohe Datenintegrität und Fehlertoleranz zu bieten.
 
 > ℹ️ **Info:**  
 > Ein ZFS RAID-1, auch als Spiegelung bekannt, beinhaltet das Kopieren von Daten auf zwei Festplatten (oder mehr) in Echtzeit. Alle Schreibvorgänge werden auf beide Platten dupliziert, was Redundanz und erhöhte Datensicherheit bietet, da auf die Daten zugegriffen werden kann, selbst wenn eine der Platten ausfällt.
