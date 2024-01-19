@@ -127,7 +127,7 @@ Das ganze dauert dann eine kleine Weile
 
 Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten ...
 
-Die Installation ist ziemlich selbt erklärend und es gibt diverse Blogs[$^{[1]}$](https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/)[$^{[2)}$](<https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a>)
+Die Installation ist ziemlich selbt erklärend 🌝. Wer es nochmal genauer nachlesen möchte, es gibt diverse Blogs zu diesem Thema[$^{[1]}$](https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/)[$^{[2)}$](<https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a>), daher sparen wir uns für dieses Tutorial weitere Details.
 
 ### Erste Schritte 👣 in Proxmox
 
@@ -158,6 +158,11 @@ Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit be
 
 > ℹ️ **Info:**  
 > Ein ZFS RAID-1, auch als Spiegelung bekannt, beinhaltet das Kopieren von Daten auf zwei Festplatten (oder mehr) in Echtzeit. Alle Schreibvorgänge werden auf beide Platten dupliziert, was Redundanz und erhöhte Datensicherheit bietet, da auf die Daten zugegriffen werden kann, selbst wenn eine der Platten ausfällt.
+
+### Vorteile von ZFS
+
+> ZFS nutzt Copy-On-Write und ein Journal (ZIL, ZFS Intent Log). ZFS kann so zu jeder Zeit auf ein konsistentes Dateisystem zurückgreifen. Sicherungen und Rücksicherungen von Blöcken sowie Dateisystemprüfungen sind so bei Abbrüchen wie einem Stromausfall nicht nötig. Inkonsistenzen in Metadaten und Daten werden bei jedem Lesevorgang automatisch erkannt und bei redundanter Information soweit möglich automatisch korrigiert. Die Leistung von solchen Dateisystemen nimmt allerdings ab ca. 80 % Belegung spürbar ab, wie bei allen anderen Dateisystemen auch.
+(Quelle: [Wiki](https://de.wikipedia.org/wiki/ZFS_(Dateisystem)))
 
 ### Schritte
 
