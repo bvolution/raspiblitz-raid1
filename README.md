@@ -166,16 +166,16 @@ Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zetabyte
 <img src=image-3.png width=400/>
 </p>
 
-2. Für die beste Performance empfiehlt es sich zunächst einen GPT (=) auf die beiden neuen Platten zu schreiben
+2. Für die beste Performance empfiehlt es sich zunächst einen GPT (= GUID Partitions Tabelle[$^{[4]}$](https://de.wikipedia.org/wiki/GUID_Partition_Table), ausnahmsweise mal nicht die KI 😆) auf die beiden neuen Platten mittels gdisk[$^{[5]}$](https://wiki.ubuntuusers.de/gdisk/#Aufbau-einer-GPT) zu schreiben  zu schreiben
    1. `gdisk /dev/sdb`
       1. Wichtig für beide Platten und, sdb oder sdc entsprechend durch eure device Buchstaben ersetzen.
    2. Dann eingeben `"gpt"` -> <kbd>O</kbd> -> <kbd>Y</kbd>
    3. Dann noch schreiben auf die PLatte mittels <kbd>W</kbd> -> <kbd>Y</kbd>
    4. Rinse and Repeat (Also erneut für die zweite Platte)
 
-3. Als Tipp: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
+2. Als Tipp: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
 
-für die beste performance aber noch die ssds mit gdisk auf gpt formatieren
+für die beste performance aber noch die ssds mit gdisk auf gpt partitionieren
 
 - dann o (gpt schreiben)
 - dann w
@@ -187,7 +187,7 @@ zpool create -o ashift=12 <mirrorname> mirror /dev/disk/by-id/UUID-angeben /dev/
 
 ## Nächste Sicherheitsausbaustufen
 
-Wir nähern uns hier mit dem RAID-1 Betrieb einer extrem hohen Ausfallsicherheit. Ein letztes Risiko bleibt der Stromausfall / Blackout. Im worst case, geht hier dein komplettes Setup in die Knie, mitten im Schreibprozess auf den RAID-1 (die beiden SSDs). Durch die Art und Weise wie RAID-1 und ZFS funktioniert ist es nicht ausgeschlossen, das dabei nicht beide SSDs gleichzeitig ausfallen.  
+Wir nähern uns hier mit dem RAID-1 Betrieb einer extrem hohen Ausfallsicherheit. Ein letztes Risiko bleibt der Stromausfall / Blackout. Im worst case, geht hier dein komplettes Setup in die Knie, mitten im Schreibprozess auf den RAID-1 (die beiden SSDs). Durch die Art und Weise wie RAID-1 und ZFS funktioniert ist die Gefahr von data corruption ist etwas höher bei ZFS
 
 ### USV / UPS als Lösung
 
