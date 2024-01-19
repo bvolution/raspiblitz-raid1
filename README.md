@@ -1,8 +1,8 @@
 # RaspiBlitz im Doppelpack - RAID-1 für maximale Sicherheit beim Betrieb deiner Lightning⚡ Fullnode
 
-In diesem Blog Beitrag berichten wir, all das was wir gelernt haben und geben euch eine Schritt für Schritt Anleitung wie ihr die Sicherheit beim Betrieb einer RaspiBlitz weiter maximieren und einen RAID-1 aufsetzen könnt.
+In diesem Blog Beitrag bekommt ihr eine Schritt für Schritt Anleitung wie ihr die Sicherheit beim Betrieb einer RaspiBlitz weiter maximieren könnt indem ihr RAID-1 für euren RaspiBlitz aufsetzet. Dieser Blog ist von Plebs für Plebs geschrieben und basiert auf unseren Erfahrunge
 
-## Zielbild
+## Zielbild RaspiBlitz mit RAID-1
 
 1. Dazu werden wir auf einem Stromsparenden Mini PC einen Virtualisierungsserver (Proxmox) aufsetzen.
 2. Einen RAID-1 (also absoluten Spiegel) für unsere SSD aufsetzen.  
@@ -13,11 +13,13 @@ Damit erzeugen wir Redundanz, was im Endeffekt bedeutet, selbst im Wort Case: da
 Klingt technisch oder zu kompliziert 🫢?  
 Ist es überhaupt nicht und wir nehmen dich mit auf die Reise und liefern hier ein Schritt für Schritt Tutorial.
 
-### Warum? Oder die Vorteile von RAID-1 💾
+### Warum? Oder was sind die Vorteile von RAID-1 💾?
 
-Beim Ausfall einer SSD gibt es eine komplette Redundanz. Eure Channels bleiben also selbst beim total Ausfall einer SSD offen. Bei den aktuellen hohen Transaktionsgebühren (TX, ~ 180 sats/VByte), spart ihr euch somit eine Menge Sats (₿), zudem ist es einfach ein sehr beruhigendes Gefühl, zu wissen dass die Platte mit euren Funds komplett gespiegelt und somit abgesichert ist.
+Beim Ausfall einer SSD gibt es eine komplette Redundanz. Eure Channels bleiben also selbst beim  Totalausfall einer SSD offen. Bei den aktuellen hohen Transaktionsgebühren (TX, ~ 180 sats/VByte), spart ihr euch somit eine Menge Sats (₿), zudem ist es einfach ein sehr beruhigendes Gefühl, zu wissen dass die Platte mit euren Funds komplett gespiegelt und somit abgesichert ist.
 
 **Exemplarischer aktueller Block**  🔎
+
+Einen Channel zu Öffnen kostet bei den Momentanen Fees gerne mal zwischen 15.000 und 30.000 SATs. Ein stolzes Sümmchen was zum Zeitpunkt des schreibens in etwa ~5.72€ - 11.44€ entspricht.
   
 ![Alt text](image.png)
 
@@ -75,7 +77,7 @@ Wir wählen hier **Proxmox VE**
 
 ![Alt text](image-1.png)
 
-ℹ️ **Info:**  
+> ℹ️ **Info:**  
 > Was ist Promox VE? Proxmox Virtual Environment (Proxmox VE) ist eine Open-Source-Plattform für Virtualisierung, die auf dem Kernel-basierten Virtual Machine (KVM) Hypervisor und dem containerbasierten Virtualisierungssystem LXC basiert. Sie bietet eine integrierte Management-Oberfläche für die Bereitstellung und Verwaltung von virtuellen Maschinen und Containern auf einem einzigen Host.
 
 **Wichtig:** Wenn ihr auf sicher gehen wollt, dass die Datei nicht manipuliert ist und identisch zu der auf der Homepage von Proxmox angegebenen datei ist, könnt ihr den SHA256 Hash der Datei abgleichen. Und gerade wenn es um eure hart verdienten Sats geht, lohnt es sich ggf. extra vorsichtig zu sein, oder 🤔?
@@ -125,7 +127,7 @@ Das ganze dauert dann eine kleine Weile
 
 Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten ...
 
-Die Installation ist ziemlich selbt erklärend und es gibt diverse Blogs[$^{[1]}$](https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/)
+Die Installation ist ziemlich selbt erklärend und es gibt diverse Blogs[$^{[1]}$][https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/]($^{[2)}$](<https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a>)
 
 ### Erste Schritte 👣 in Proxmox
 
@@ -149,12 +151,29 @@ Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kan
   - Und git braucht man eigentlich immer
   - Hier ist ein Micro Repository, mit den Dingen die ich gerne auf einem neuen Proxmox Sytem aufsetze: [`customize-proxmox`](https://github.com/bvolution/customize-proxmox)
 
-## 2.) ZFS RAID-1 in Proxmox aufsetzen
+## 2) ZFS RAID-1 in Proxmox aufsetzen
 
-Ipsum Dorusm
+Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zetabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" [$^{[3]}$](https://www.westerndigital.com/de-de/solutions/raid) und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
 
 > ℹ️ **Info:**  
 > Ein ZFS RAID-1, auch als Spiegelung bekannt, beinhaltet das Kopieren von Daten auf zwei Festplatten (oder mehr) in Echtzeit. Alle Schreibvorgänge werden auf beide Platten dupliziert, was Redundanz und erhöhte Datensicherheit bietet, da auf die Daten zugegriffen werden kann, selbst wenn eine der Platten ausfällt.
+
+### Schritte
+
+1. Versichert euch mit list block (`lsblk`) das eure Platten auffindbar sind. In meinem Fall sind sie zu finden unter `/dev/sdb` und `/dev/sdc`
+
+<p align=center>
+<img src=image-3.png width=400/>
+</p>
+
+2. Für die beste Performance empfiehlt es sich zunächst einen GPT (=) auf die beiden neuen Platten zu schreiben
+   1. `gdisk /dev/sdb`
+      1. Wichtig für beide Platten und, sdb oder sdc entsprechend durch eure device Buchstaben ersetzen.
+   2. Dann eingeben `"gpt"` -> <kbd>O</kbd> -> <kbd>Y</kbd>
+   3. Dann noch schreiben auf die PLatte mittels <kbd>W</kbd> -> <kbd>Y</kbd>
+   4. Rinse and Repeat (Also erneut für die zweite Platte)
+
+3. Als Tipp: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
 
 für die beste performance aber noch die ssds mit gdisk auf gpt formatieren
 
