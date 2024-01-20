@@ -153,7 +153,7 @@ Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kan
 
 ## 2) ZFS RAID-1 in Proxmox aufsetzen
 
-Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zettabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" <a href="https://www.westerndigital.com/de-de/solutions/raid">$^{[3]}$</a> und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
+Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zettabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" <a href="https://www.westerndigital.com/de-de/solutions/raid"><sup>[3]</sup></a> und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
 Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit bekannt, auch im Falle von Stromausfällen. Es wurde speziell entwickelt, um hohe Datenintegrität und Fehlertoleranz zu bieten.
 
 > ℹ️ **Info:**  
