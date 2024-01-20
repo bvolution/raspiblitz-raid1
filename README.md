@@ -127,7 +127,7 @@ Das ganze dauert dann eine kleine Weile
 
 Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und folgt den Installationsschritten ...
 
-Die Installation ist ziemlich selbt erklärend 🌝. Wer es nochmal genauer nachlesen möchte, es gibt diverse Blogs zu diesem Thema[$^{[1]}$](https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/)[$^{[2)}$](<https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a>), daher sparen wir uns für dieses Tutorial weitere Details.
+Die Installation ist ziemlich selbt erklärend 🌝. Wer es nochmal genauer nachlesen möchte, es gibt diverse Blogs zu diesem Thema <a href="https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/"><sup>[1]</suo></a><a href="https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a"><sup>[2]</sup></a>, daher sparen wir uns für dieses Tutorial weitere Details.
 
 ### Erste Schritte 👣 in Proxmox
 
@@ -172,7 +172,7 @@ Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit be
 <img src=image-3.png width=400/>
 </p>
 
-2. Für die beste Performance empfiehlt es sich zunächst einen GPT (= GUID Partitions Tabelle[$^{[4]}$](https://de.wikipedia.org/wiki/GUID_Partition_Table), ausnahmsweise mal nicht die KI 😆) auf die beiden neuen Platten mittels gdisk[$^{[5]}$](https://wiki.ubuntuusers.de/gdisk/#Aufbau-einer-GPT) zu schreiben  zu schreiben
+2. Für die beste Performance empfiehlt es sich zunächst einen GPT (= GUID Partitions Tabelle<a href="https://de.wikipedia.org/wiki/GUID_Partition_Table"><sup>[4]</sup></a>, ausnahmsweise mal nicht die KI 😆) auf die beiden neuen Platten mittels gdisk<a href="https://wiki.ubuntuusers.de/gdisk/#Aufbau-einer-GPT"><sup>[5]</sup></a> zu schreiben  zu schreiben
    1. `gdisk /dev/sdb`
       1. Wichtig für beide Platten und, sdb oder sdc entsprechend durch eure device Buchstaben ersetzen.
    2. Dann eingeben `"gpt"` -> <kbd>O</kbd> -> <kbd>Y</kbd>
