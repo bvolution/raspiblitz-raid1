@@ -47,9 +47,19 @@ Ihr solltet unbedingt sicher gehen, dass ihr
 1. Den Seed zu eurer Node habt
 2. Ein aktuelles [SCB](https://docs.lightning.engineering/lightning-network-tools/lnd/recovery-planning-for-failure#static-channel-backups-scb) (Static Channel Backup) habt
 
-Habt. Damit ihr im worst-case Szenario mit dem Desaster Recover ([Link](https://docs.lightning.engineering/lightning-network-tools/lnd/disaster-recovery)) eure Funds wieder herstellen könnt.
+Damit ihr im worst-case Szenario mit dem Desaster Recover ([Link](https://docs.lightning.engineering/lightning-network-tools/lnd/disaster-recovery)) eure Funds wieder herstellen könnt. Bedenkt aber dass ein disaster recovery mittels SCB auch mit dem Close aller eurer Channel einhergeht. Und entsprechend teuer werden kann. Daher werden wir für dieses Tutorial eine Migration in Angriff nehmen.
+
+Es nicht notwendig für dieses Tutorial aber es kann nicht schaden. am besten die entsprechenden Abschnitte zur Migration
 
 ## Hardware Setup
+
+Als _kleiner Bonustipp_: wenn ich Hardware bestelle, schaue ich als erstes bei [satsback.com](https://satsback.com/register/Ezv2VLwRk6Wd8X4Z). Satsback listet diverse Shops (z.B. Büroshop24 bei dem ich die SSDs bestellt habe), wenn ihr über den Link von Satsback auf einen der Shops geht bekommt Satsback eine Komission (auch Kickback genannt), wandelt diese in Satoshis um und zahlt sie direkt an euch aus. Ein wenig wie Payback für Satoshis.
+
+Das schreibt [satsback.com](https://satsback.com/register/Ezv2VLwRk6Wd8X4Z) selbst auf ihrer Webseite
+
+> "We work with online stores that pay us a commission whenever you shop with them. We convert that to bitcoin and share most of it with you. Because we also make a small profit every time you buy something, we can keep our platform free to use while respecting your privacy."
+
+Hab bisher nur positive Erfahrungen gemacht. Full Disclosure der Link oben ist ein Referallink, muss keiner nutzen, kostet euch aber nichts aber unterstützt den Autor dieses Tutorials 🌝
 
 ### Getestet für diesen Blog
 
@@ -161,7 +171,10 @@ Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit be
 
 ### Vorteile von ZFS
 
-> ZFS nutzt Copy-On-Write und ein Journal (ZIL, ZFS Intent Log). ZFS kann so zu jeder Zeit auf ein konsistentes Dateisystem zurückgreifen. Sicherungen und Rücksicherungen von Blöcken sowie Dateisystemprüfungen sind so bei Abbrüchen wie einem Stromausfall nicht nötig. Inkonsistenzen in Metadaten und Daten werden bei jedem Lesevorgang automatisch erkannt und bei redundanter Information soweit möglich automatisch korrigiert. Die Leistung von solchen Dateisystemen nimmt allerdings ab ca. 80 % Belegung spürbar ab, wie bei allen anderen Dateisystemen auch.
+Was macht ZFS besonders geeignet (d.h. Sicher) für unser Szenario?
+Lest selbst ich finde Wikipedia fasst es ziemlich gut zusammen
+
+> "ZFS nutzt Copy-On-Write und ein Journal (ZIL, ZFS Intent Log). ZFS kann so zu jeder Zeit auf ein konsistentes Dateisystem zurückgreifen. Sicherungen und Rücksicherungen von Blöcken sowie Dateisystemprüfungen sind so bei Abbrüchen wie einem Stromausfall nicht nötig. Inkonsistenzen in Metadaten und Daten werden bei jedem Lesevorgang automatisch erkannt und bei redundanter Information soweit möglich automatisch korrigiert. Die Leistung von solchen Dateisystemen nimmt allerdings ab ca. 80 % Belegung spürbar ab, wie bei allen anderen Dateisystemen auch."
 (Quelle: [Wiki](https://de.wikipedia.org/wiki/ZFS_(Dateisystem)))
 
 ### Schritte
@@ -179,13 +192,14 @@ Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit be
    3. Dann noch schreiben auf die PLatte mittels <kbd>W</kbd> -> <kbd>Y</kbd>
    4. Rinse and Repeat (Also erneut für die zweite Platte)
 
-2. Als Tipp: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
-
-für die beste performance aber noch die ssds mit gdisk auf gpt partitionieren
-
-- dann o (gpt schreiben)
-- dann w
-- macht die änderungn wirksam
+2. **Als Tipp**: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
+   1. Um herauszufinden welche Platte welche ist, könnt ihr diese einzeln abstecken (USB ziehen) und erneut mit `blkid` schauen welche der beiden (`/dev/sdb` oder `/dev/sdc` + welche UUID noch angezeigt wird)
+   2. Hier im Beispiel blkid bevor ich eine Platte ziehe
+   ![Alt text](image-4.png)
+   4. Hier nachdem ich eine gezogen habe um den entsprechenden  Aufkleber anzubringen
+   ![Alt text](image-5.png)
+   Entsprechend weiß ich, die noch angeschlossene Platte ist /dev/sdc mit UUID `"cab8 ... 80d"`
+3.  
 
 ```sh
 zpool create -o ashift=12 <mirrorname> mirror /dev/disk/by-id/UUID-angeben /dev/disk/by-id/UUID-angeben
