@@ -195,10 +195,10 @@ Lest selbst ich finde Wikipedia fasst es ziemlich gut zusammen
 2. **Als Tipp**: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
    1. Um herauszufinden welche Platte welche ist, könnt ihr diese einzeln abstecken (USB ziehen) und erneut mit `blkid` schauen welche der beiden (`/dev/sdb` oder `/dev/sdc` + welche UUID noch angezeigt wird)
    2. Hier im Beispiel blkid bevor ich eine Platte ziehe
-   ![Alt text](image-4.png)
-   4. Hier nachdem ich eine gezogen habe um den entsprechenden  Aufkleber anzubringen
-   ![Alt text](image-5.png)
-   Entsprechend weiß ich, die noch angeschlossene Platte ist /dev/sdc mit UUID `"cab8 ... 80d"`
+   <p align=center><img src=image-4.png width=350 /></p>
+   3. Hier nachdem ich eine gezogen habe um den entsprechenden  Aufkleber anzubringen
+   <p align=center><img src=image-5.png width=350 /></p>
+   Entsprechend weiß ich, die noch angeschlossene Platte ist `/dev/sdc` mit UUID `"cab8 ... 80d"` und kann den entspechenden Aufkleber anbringen.
 3.  
 
 ```sh
