@@ -59,7 +59,7 @@ Das schreibt [satsback.com](https://satsback.com/register/Ezv2VLwRk6Wd8X4Z) selb
 
 > "We work with online stores that pay us a commission whenever you shop with them. We convert that to bitcoin and share most of it with you. Because we also make a small profit every time you buy something, we can keep our platform free to use while respecting your privacy."
 
-Hab bisher nur positive Erfahrungen gemacht. Full Disclosure der Link oben ist ein Referallink, muss keiner nutzen, kostet euch aber nichts aber unterstützt den Autor dieses Tutorials 🌝
+Hab bisher nur positive Erfahrungen gemacht. Full Disclosure der Link oben ist ein Referallink, muss keiner nutzen, kostet euch nichts und unterstützt den Autor dieses Tutorials 🌝
 
 ### Getestet für diesen Blog
 
