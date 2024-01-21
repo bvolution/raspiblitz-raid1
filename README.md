@@ -73,14 +73,7 @@ Funktion | Setup 1 (bvolution) | Setup 2 (to be annouced)
 
 <hr>
 
-# Schritte
-
-1. Proxmox (Virtualisierungs Host System)
-2. ZFS RAID-1 Setup: SSD wird komplett gespiegelt
-3. Virtuelle Machine (RaspiBlitz)
-4. (Migration einer bestehenden Node)
-
-Ok auf gehts
+# Schritt-für-Schritt Tutorial
 
 ## 1) Proxmox VE Installieren
 
@@ -221,14 +214,34 @@ Die Wikipedia Seite zu ZFS in Proxmox (s.o.) ist allgemein sehr informativ und e
    <p align=center><img src=image-4.png width=450 /></p>
    3. Hier nachdem ich eine gezogen habe um den entsprechenden  Aufkleber anzubringen
    <p align=center><img src=image-5.png width=450 /></p>
-   Entsprechend weiß ich, die noch angeschlossene Platte ist `/dev/sdc` mit UUID `"cab8 ... 80d"` und kann den entspechenden Aufkleber anbringen.
+   Entsprechend weiß ich, die noch angeschlossene Platte ist `/dev/sdc` mit UUID `cab8 ... 80d` und kann den entspechenden Aufkleber anbringen.
 3. Nun geht es ans eingemachte. Wir richten den den eigentlichen ZFS-Pool (RAID-1) ein.
-   1. Vorab: man kann dies auch bequem über die Graphische Oberfläsche (GUI) tun, und wird z.B. hier<sup><a href="https://technium.ch/proxmox-zfs-mirror-zfs-raid-1-erstellen-tutorial/">[6]</sup></a> erklärt.
-   2. Ich bevorzuge es auf der Konsole zu arbeiten für dieses Tutorial.
+   1. Man kann dies bequem über die Graphische Oberfläsche (GUI) tun, und wird z.B. hier<sup><a href="https://technium.ch/proxmox-zfs-mirror-zfs-raid-1-erstellen-tutorial/">[6]</sup></a> erklärt.
+   2. Ihr loggt euch dazu in eurem webui ein (also über die IP eures proxmox mit port 8006). In meinem fall gebe ich `https://192.168.178.100:8006/` im browser meines vertrauens ein.
+   3. Links in der Navigation wählt man unter `Datacenter/Nodes/pve`, drückt auf pve (proxmox virtual environment).
+   4. In der mittleren leiste geht ihr auf `Disks/ZFS`
+   5. Anschließend auf `Create: ZFS`
+   ![Alt text](image-6.png)
+   6. Hier macht ihr folgende Einstellungen
+      1. Wählt einen Namen (traidtionell in online blogs etc häufig als `tank`)
+      2. RAID Level: hier wählt ihr Mirror für RAID1
+      3. Wählt in der Liste eure SSDs aus
+      4. Drückt auf Create
+   ![Alt text](image-7.png)
+   7. Mit doppelclick auf den neuen ZFS Pool den ihr soeben eingerichtet habt, könnt ihr euch dann auch den status der Platten noch einmal anzeigen lassen
+ ![Alt text](image-8.png)
 
-```sh
-zpool create -o ashift=12 <mirrorname> mirror /dev/disk/by-id/UUID-angeben /dev/disk/by-id/UUID-angeben
-```
+Das war es im Grunde genommen schon. Im nächsten Schritt installieren wir auf einer VM zunächst eine neue Bitcoin und LN Fullnode über den Raspiblitz.
+
+## 3) VM mit RaspiBlitz installieren
+
+
+   <!-- 2. Ich bevorzuge es auf der Konsole zu arbeiten für dieses Tutorial. Dazu verwenden wir `zpool create`.
+   1. Im Simme don't trust verify könnt ihr wenn ihr euch noch tiefer einlesen wollt diesen Guide oder schlicht das manual zu zpool create mittels `man zpool create` durchlesen
+  
+  ```sh
+  zpool create -o ashift=12 <mirrorname> mirror /dev/disk/by-id/UUID-angeben /dev/disk/by-id/UUID-angeben
+  ``` -->
 
 ## Nächste Sicherheitsausbaustufen
 
