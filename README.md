@@ -4,8 +4,10 @@ In diesem Blog Beitrag bekommt ihr eine Schritt für Schritt Anleitung wie ihr d
 
 ## Zielbild RaspiBlitz mit RAID-1
 
-1. Dazu werden wir auf einem Stromsparenden Mini PC einen Virtualisierungsserver (Proxmox) aufsetzen.
-2. Einen RAID-1 (also absoluten Spiegel) für unsere SSD aufsetzen.  
+1. [Proxmox VE Installieren](#1-proxmox-ve-installieren)  
+Dazu werden wir auf einem Stromsparenden Mini PC einen Virtualisierungsserver (Proxmox) aufsetzen.
+2. [ZFS RAID-1 in Proxmox aufsetzen](#2-zfs-raid-1-in-proxmox-aufsetzen)  
+Einen RAID-1 (also absoluten Spiegel) für unsere SSD aufsetzen.  
 Damit erzeugen wir Redundanz, was im Endeffekt bedeutet, selbst im Wort Case: das uns eine SSD abraucht, läuft unser RaspiBlitz ganz unbeindruckt weiter.
 3. Erstellen einer Virtuellen Machine (erzeugt via Proxmox) auf der unser Raspiblitz läuft.
 4. (Optional) Migrieren unserer bestehenden Node
@@ -94,7 +96,7 @@ Wir wählen hier **Proxmox VE**
 
 Falls euch das nicht wichtig ist, könnt ihr getrost das nächste Unterkapitel überspringen
 
-### Installtionsdatei Verifizieren
+### 1.1) Installtionsdatei Verifizieren
 
 #### Windows 🪟
 
@@ -118,7 +120,7 @@ CertUtil: -hashfile-Befehl wurde erfolgreich ausgeführt.
 
 Hier seht ihr das der Hash aus der Konsole übereinstimmt mit dem von der Webseite
 
-### Vorbereiten der Installtion (Flash der .iso Datei)
+### 1.2) Vorbereiten der Installtion (Flash der .iso Datei)
 
 Wenn Ihr bereits einen RaspiBlitz im Betrieb habt, sollte euch das folgende sehr bekannt vorkommen.
 Die Schritte sind quasi identisch zum Setup für den Raspiblitz ([Write the SD Card image to the SD Card](https://github.com/raspiblitz/raspiblitz#write-the-sd-card-image-to-your-sd-card)).
@@ -139,7 +141,7 @@ Den USB-Stick bzw. die SD-Karte stöpselt ihr jetzt einfach in euren Mini-PC und
 
 Die Installation ist ziemlich selbt erklärend 🌝. Wer es nochmal genauer nachlesen möchte, es gibt diverse Blogs zu diesem Thema <a href="https://decatec.de/home-server/proxmox-ve-installation-und-grundkonfiguration/"><sup>[1]</suo></a><a href="https://mwiza.medium.com/how-to-install-proxmox-ve-on-a-server-771c9f99933a"><sup>[2]</sup></a>, daher sparen wir uns für dieses Tutorial weitere Details.
 
-### Erste Schritte 👣 in Proxmox
+### 1.3) Erste Schritte 👣 in Proxmox
 
 Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kann
 
@@ -163,21 +165,42 @@ Hier sind einige erste Schritte die ich nach dem Setup von Proxmox empfehlen kan
 
 ## 2) ZFS RAID-1 in Proxmox aufsetzen
 
-Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zettabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" <a href="https://www.westerndigital.com/de-de/solutions/raid"><sup>[3]</sup></a> und bedeutet dass der Inhalt denn ihr normalerweise nur eine Platte schreibt permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
+Wenn ihr schon wisst was ZFS und RAID-1 sind könnt ihr dieses unterkapitel überspringen und direkt zum Kapitel **2.2 Schritte zur Einrichtung** springen.  
+  
+Was ist jetzt ein ZFS RAID-1? Zunächst einmal ist ZFS ein Dateisystem (Zettabyte File System) und RAID-1 steht für "Redundant Array of Independent Disks (Redundanter Array unabhängiger Festplatten)" <a href="https://www.westerndigital.com/de-de/solutions/raid"><sup>[3]</sup></a> und bedeutet dass die Daten die normalerweise nur auf eine Platte geschrieben werden permanent gespiegelt und auf eine zweite Platte zusätzliche geschrieben werden.
 Das ZFS (Zettabyte File System) ist für seine Robustheit und Datensicherheit bekannt, auch im Falle von Stromausfällen. Es wurde speziell entwickelt, um hohe Datenintegrität und Fehlertoleranz zu bieten.
 
 > ℹ️ **Info:**  
 > Ein ZFS RAID-1, auch als Spiegelung bekannt, beinhaltet das Kopieren von Daten auf zwei Festplatten (oder mehr) in Echtzeit. Alle Schreibvorgänge werden auf beide Platten dupliziert, was Redundanz und erhöhte Datensicherheit bietet, da auf die Daten zugegriffen werden kann, selbst wenn eine der Platten ausfällt.
 
-### Vorteile von ZFS
+### 2.1) Vorteile von ZFS
 
 Was macht ZFS besonders geeignet (d.h. Sicher) für unser Szenario?
-Lest selbst ich finde Wikipedia fasst es ziemlich gut zusammen
+Ich finde Wikipedia fasst es ziemlich gut zusammen
 
 > "ZFS nutzt Copy-On-Write und ein Journal (ZIL, ZFS Intent Log). ZFS kann so zu jeder Zeit auf ein konsistentes Dateisystem zurückgreifen. Sicherungen und Rücksicherungen von Blöcken sowie Dateisystemprüfungen sind so bei Abbrüchen wie einem Stromausfall nicht nötig. Inkonsistenzen in Metadaten und Daten werden bei jedem Lesevorgang automatisch erkannt und bei redundanter Information soweit möglich automatisch korrigiert. Die Leistung von solchen Dateisystemen nimmt allerdings ab ca. 80 % Belegung spürbar ab, wie bei allen anderen Dateisystemen auch."
 (Quelle: [Wiki](https://de.wikipedia.org/wiki/ZFS_(Dateisystem)))
 
-### Schritte
+Weitere Vorteile finden sich z.B. auch im Proxmox [Wiki](https://pve.proxmox.com/wiki/ZFS_on_Linux)
+
+> - Easy configuration and management with Proxmox VE GUI and CLI.
+> - Reliable
+> - Protection against data corruption
+> - Data compression on file system level
+> - Snapshots
+> - Copy-on-write clone
+> - Various raid levels: RAID0, RAID1, RAID10, RAIDZ-1, RAIDZ-2, RAIDZ-3, dRAID, dRAID2, dRAID3
+> - Can use SSD for cache
+> - Self healing
+> - Continuous integrity checking
+> - Designed for high storage capacities
+> - Asynchronous replication over network
+> - Open Source
+> - Encryption
+
+Die Wikipedia Seite zu ZFS in Proxmox (s.o.) ist allgemein sehr informativ und empfehlenswert.
+
+### 2.2) Schritte zum Einrichten
 
 1. Versichert euch mit list block (`lsblk`) das eure Platten auffindbar sind. In meinem Fall sind sie zu finden unter `/dev/sdb` und `/dev/sdc`
 
@@ -195,11 +218,13 @@ Lest selbst ich finde Wikipedia fasst es ziemlich gut zusammen
 2. **Als Tipp**: Holt euch die UUID (Universally Unique Identifier) eurer Platten und notiert diese gemeinsam mit dem /dev/sdX (z.B. `/dev/sdb`) auf einem Aufkleber direkt auf eurer Platte. Die UUID bekommt ihr raus über `blkid /dev/sdb`
    1. Um herauszufinden welche Platte welche ist, könnt ihr diese einzeln abstecken (USB ziehen) und erneut mit `blkid` schauen welche der beiden (`/dev/sdb` oder `/dev/sdc` + welche UUID noch angezeigt wird)
    2. Hier im Beispiel blkid bevor ich eine Platte ziehe
-   <p align=center><img src=image-4.png width=350 /></p>
+   <p align=center><img src=image-4.png width=450 /></p>
    3. Hier nachdem ich eine gezogen habe um den entsprechenden  Aufkleber anzubringen
-   <p align=center><img src=image-5.png width=350 /></p>
+   <p align=center><img src=image-5.png width=450 /></p>
    Entsprechend weiß ich, die noch angeschlossene Platte ist `/dev/sdc` mit UUID `"cab8 ... 80d"` und kann den entspechenden Aufkleber anbringen.
-3.  
+3. Nun geht es ans eingemachte. Wir richten den den eigentlichen ZFS-Pool (RAID-1) ein.
+   1. Vorab: man kann dies auch bequem über die Graphische Oberfläsche (GUI) tun, und wird z.B. hier<sup><a href="https://technium.ch/proxmox-zfs-mirror-zfs-raid-1-erstellen-tutorial/">[6]</sup></a> erklärt.
+   2. Ich bevorzuge es auf der Konsole zu arbeiten für dieses Tutorial.
 
 ```sh
 zpool create -o ashift=12 <mirrorname> mirror /dev/disk/by-id/UUID-angeben /dev/disk/by-id/UUID-angeben
