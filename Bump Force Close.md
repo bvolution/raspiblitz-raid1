@@ -37,7 +37,11 @@ TL;DR
 1. Channel Status und Channel Point identifizieren  
    `lncli pendingchannels`  
    Sucht nach dem Key `"channel_point":` der Wert bestelt aus eine zufällig wirkenden Zeichenkette (Hash) gefolgt von einem `:` und einer Zahl (output id). Eine bessere Erklärung des Channelpoints findet sich [hier](https://docs.lightning.engineering/community-resources/glossary#channel-point)
-2. Initiieren einer CPFP
+2. Initiieren einer CPFP-Transaktion um die Fee zu erhöhen  
+   `lncli wallet bumpclosefee <channel_poit> --sat_per_vbyte <value>`  
+   Alternativ zu einem sat_per_vbyte Wert kann man auch eine Anzahl an gewünschten Blöcken bis zu denen
+   die Transaktion gemint werden soll mit `--conf_target`. Dokumentation zum Befehl
+   `wallet bumpclosefee` findet sich [hier](https://docs.lightning.engineering/lightning-network-tools/lnd/unconfirmed-bitcoin-transactions#docs-internal-guid-5647dd03-7fff-dc71-47cf-5f7e2155a44d)
 
 # Ausführliche Anleitung
 
@@ -57,7 +61,6 @@ Als erstes schauen wir uns an welche "Pending" (ausstehdenden) Transaktionen (TX
 lncli pendingchannels
 
 ```
-
 
 # Glosar zum Artikel
 
@@ -130,4 +133,3 @@ Eine **Child-Pays-For-Parent (CPFP)**-Transaktion ist eine Technik im Bitcoin-Ne
 - Die Kindtransaktion muss eine ausreichend hohe Gebühr haben, um die kombinierte Gebühr für beide Transaktionen attraktiv genug für die Miner zu machen.
 
 **Zusammengefasst:** CPFP ist eine Methode, um eine unbestätigte Transaktion im Bitcoin-Netzwerk durch das Erstellen einer nachfolgenden Transaktion mit höheren Gebühren zu beschleunigen, sodass Miner die ursprüngliche (Parent-)Transaktion zusammen mit der neuen (Child-)Transaktion bestätigen.
-
