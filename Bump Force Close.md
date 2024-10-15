@@ -42,6 +42,7 @@ TL;DR
    Alternativ zu einem sat_per_vbyte Wert kann man auch eine Anzahl an gewünschten Blöcken bis zu denen
    die Transaktion gemint werden soll mit `--conf_target`. Dokumentation zum Befehl
    `wallet bumpclosefee` findet sich [hier](https://docs.lightning.engineering/lightning-network-tools/lnd/unconfirmed-bitcoin-transactions#docs-internal-guid-5647dd03-7fff-dc71-47cf-5f7e2155a44d)
+3. Warten 💤, nachdem die CPFP Transaktion gemint wurde, dauert es noch 2016 Blöcke (c.a. 2 Wochen) bis die Funds nach dem Force Close wieder frei sind.
 
 # Ausführliche Anleitung
 
